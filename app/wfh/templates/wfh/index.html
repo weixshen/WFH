@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<button type="button" onclick="window.location.href='/wfh/logout'" class="btn btn-default">退出登陆</button>
+
+<center>
+  <div class="page-header">
+    <h3>文章列表</h3>
+  </div>
+  <div class="row">
+    <div class="col-md-9">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>标题</th>
+            <th>动作</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for article in articles %}
+          <tr>
+            <td width="90%">
+              {{ article }}
+            </td>
+            <td>
+              <a href="{% url 'wfh:words' article.id %}">开始记忆</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <center>
+
+{% endblock %}

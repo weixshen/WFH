@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Words From Headlines</title>
+    {% load staticfiles %}
+    <link href="{% static 'wfh/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'wfh/css/signin.css' %}" rel="stylesheet">
+    <script type="text/javascript" src="{% static 'wfh/js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'wfh/js/bootstrap.min.js' %}"></script>
+  </head>
+
+  <body>
+    <div class="container">
+
+      {% if user_form.errors %}
+      <div class="alert alert-danger" role="alert">
+        {% if user_form.username.errors %}
+        用户名已被占用！
+        {% endif %}
+        {{ user_form.confirm_password.errors }}
+      </div>
+      {% endif %}
+
+      <form id="reg_form" class="form-signin" method="post" action="/wfh/register/" enctype="multipart/form-data">
+        <h2 class="form-signin-heading">注册WFH</h2>
+        {% csrf_token %}
+        <label for="username" class="sr-only">用户名</label>
+        <input id="username" name="username" class="form-control" placeholder="用户名" type="text" required autofocus>
+        <label for="email" class="sr-only">邮箱</label>
+        <input id="email" name="email" type="email" class="form-control" placeholder="邮箱">
+        <label for="password" class="sr-only">密码</label>
+        <input id="password" name="password" type="password" class="form-control" placeholder="密码" required>
+        <label for="confirm_password" class="sr-only">确认密码</label>
+        <input id="confirm_password" name="confirm_password" type="password" class="form-control" placeholder="确认密码" required>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">注册</button>
+      </form>
+
+      <center><a href="/wfh/">登陆页面</a></center>
+    </div>
+  </body>
+</html>

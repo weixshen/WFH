@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Words From Headlines</title>
+    {% load staticfiles %}
+    <link href="{% static 'wfh/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'wfh/css/signin.css' %}" rel="stylesheet">
+    <script type="text/javascript" src="{% static 'wfh/js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'wfh/js/bootstrap.min.js' %}"></script>
+  </head>
+
+  <body>
+    <div class="container">
+
+      {% for error in errors %}
+      <div class="alert alert-danger" role="alert">
+        <strong>{{ error }}</strong>
+      </div>
+      {% endfor %}
+
+      {% if message %}
+      <div class="alert alert-success" role="alert">
+        <strong>{{ message }}</strong>
+      </div>
+      {% endif %}
+
+      <form class="form-signin" id="login_form" method="post" action="/wfh/login/">
+        <h2 class="form-signin-heading">登陆WFH</h2>
+        {% csrf_token %}
+        <label for="username" class="sr-only">用户名</label>
+        <input type="text" name="username" id="username" class="form-control" placeholder="用户名" required autofocus>
+        <label for="password" class="sr-only">密码</label>
+        <input type="password" name="password" id="password" class="form-control" placeholder="密码" required>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="remember-me"> 记住我
+          </label>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">登陆</button>
+      </form>
+      <center><a href="/wfh/register/">立即注册</a></center>
+    </div>
+  </body>
+</html>

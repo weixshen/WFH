@@ -1,0 +1,4 @@
+gunicorn
+supervisor
+beautifulsoup4
+Django

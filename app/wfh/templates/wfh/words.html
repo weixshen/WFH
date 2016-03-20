@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block content %}
+<button type="button" onclick="window.location.href='/wfh/'" class="btn btn-default">返回首页</button>
+
+<center>
+  <div class="page-header">
+    <h1>单词列表</h1>
+  </div>
+
+  <div class="col-md-7">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>WORD</th>
+          <th>TRANSLATION</th>
+          <th>NO</th>
+          <th>YES</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for w in words %}
+        <tr id="{{ w }}" class="tr_row">
+          <td>{{ forloop.counter }}</td>
+          <td id="{{ w }}" class="word" width="30%"><strong>{{ w }}</strong></td>
+          <td id="{{ w }}" class="tran" width="40%"></td>
+          <td><button id="{{ w }}" class="dont" width="10%">不认识</button></td>
+          <td><button id="{{ w }}" class="know" width="10%">认识</button></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <button type="button" onclick="window.location.href='{{ url }}'" class="btn btn-lg btn-primary">阅读全文</button>
+
+</center>
+
+
+<script type="text/javascript">
+$(document).ready(function() {
+  $(".dont").click(function() {
+    var wid = this.id;
+    $.ajax({
+      url: "http://apis.baidu.com/apistore/tranlateservice/translate?from=en&to=zh&query=" + wid,
+      headers: {
+        "apikey": "7544f525c52c8d4beb1caa97fdd580db"
+      },
+      success: function(res){
+        var tran = JSON.parse(res).retData.trans_result[0].dst;
+        $("#" + wid + ".tran").html(tran)
+      }
+    });
+  });
+
+  $(".know").click(function() {
+    var wid = this.id;
+    $("#" + wid + ".tr_row").remove();
+    $.ajax({
+      type: "POST",
+      url: "/wfh/known/",
+      data: {
+        'word': wid,
+        csrfmiddlewaretoken: '{{ csrf_token }}'
+      },
+      success: function(response) {
+        console.log(response);
+      },
+      error: function(error) {
+        console.log(error);
+      }
+    });
+  });
+});
+</script>
+{% endblock %}
