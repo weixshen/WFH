@@ -3,8 +3,7 @@ from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect
 from django.contrib import auth
 from bs4 import BeautifulSoup
-# import urllib.request
-import urllib2
+import urllib.request
 import datetime
 import string
 
@@ -114,8 +113,7 @@ def get_article_list(request):
 
 
 def get_headline_url():
-    # page = urllib.request.urlopen("http://www.globaltimes.cn/business/insight/")
-    page = urllib2.urlopen("http://www.globaltimes.cn/business/insight/")
+    page = urllib.request.urlopen("http://www.globaltimes.cn/business/insight/")
     soup = BeautifulSoup(page, "html.parser")
     # head = soup.find_all('div', attrs={'class': 'zn__column--idx-0'})[0]
     # link = head.find('a').get('href')
@@ -127,8 +125,7 @@ def get_headline_url():
 
 
 def get_headline_content(url):
-    # page = urllib.request.urlopen(url)
-    page = urllib2.urlopen(url)
+    page = urllib.request.urlopen(url)
     soup = BeautifulSoup(page, "html.parser")
     title = soup.title.string
     content = soup.find("div", class_="row-content").get_text()
