@@ -3,7 +3,7 @@
 
 测试:
     
-    # cd Headlines/app
+    # cd WFH/app
     # ./manage.py makemigrations
     # ./manage.py migrate
     # ./manage.py runserver
